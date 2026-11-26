@@ -1,0 +1,41 @@
+{
+  "policy_name": "Baseline Network Security Policy v1.0",
+  "description": "Reglas estándar de endurecimiento (hardening) y control de acceso para routers y switches.",
+  "rules": [
+    {
+      "id": "NET-001",
+      "name": "Prohibir acceso administrativo por Telnet",
+      "severity": "HIGH",
+      "description": "Telnet transmite credenciales en texto plano. Se debe usar exclusivamente SSH.",
+      "remediation": "line vty 0 4\n transport input ssh"
+    },
+    {
+      "id": "NET-002",
+      "name": "Servicio HTTP sin cifrar habilitado",
+      "severity": "MEDIUM",
+      "description": "El servidor web de administración debe usar HTTPS y deshabilitar HTTP.",
+      "remediation": "no ip http server\nip http secure-server"
+    },
+    {
+      "id": "NET-003",
+      "name": "Contraseñas en texto plano en configuración",
+      "severity": "CRITICAL",
+      "description": "El servicio de cifrado de contraseñas debe estar activo para evitar exposición de claves.",
+      "remediation": "service password-encryption"
+    },
+    {
+      "id": "NET-004",
+      "name": "Regla ACL excesivamente permisiva (any any)",
+      "severity": "HIGH",
+      "description": "Permitir todo el tráfico sin restricción rompe el principio de menor privilegio.",
+      "remediation": "Reemplazar 'permit ip any any' con subredes y puertos específicos."
+    },
+    {
+      "id": "NET-005",
+      "name": "Puertos de acceso en VLAN 1 por defecto",
+      "severity": "LOW",
+      "description": "Los puertos de usuario no deben permanecer en la VLAN nativa por defecto (VLAN 1).",
+      "remediation": "switchport access vlan <ID_VLAN_USUARIOS>"
+    }
+  ]
+}

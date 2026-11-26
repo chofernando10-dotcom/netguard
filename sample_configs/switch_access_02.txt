@@ -1,0 +1,24 @@
+!
+version 15.2
+no service password-encryption
+!
+hostname SW-ACCESO-02
+!
+interface FastEthernet0/1
+ description PC Recepcion
+ switchport mode access
+ switchport access vlan 1
+!
+interface FastEthernet0/2
+ description Impresora Finanzas
+ switchport mode access
+ switchport access vlan 20
+!
+interface GigabitEthernet0/1
+ description Trunk hacia Core
+ switchport mode trunk
+!
+line vty 0 4
+ transport input telnet
+!
+end
